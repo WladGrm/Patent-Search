@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+    <link rel="icon" href="http://obj-cache.cloud.ruanbekker.com/favicon.ico">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <style>
+        table.no-spacing {
+        border-spacing:0; /* Removes the cell spacing via CSS */
+        border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
+}
+        tr.hide_all > td, td.hide_all{
+        border-style:hidden;
+      }
+      .blank_row
+    {
+    height: 15px !important; /* overwrites any other rules */
+    background-color: #a0c0ff;
+    }
+       </style>
+  <div class="container">
+    <div style="background:transparent !important" class="jumbotron">
+      <div style="font-family: 'Tangerine', serif;">
+        <p>
+          <center>
+          <font size="8">Patents&Suppliers by V.Gromadskii</font>
+          </center>
+        </p>
+      </div>
+    </div>
+
+    <form action="/" method="post">
+        <div>
+          <input type="text" class="form-control input-lg" name="input" placeholder="Supports RU EN CHN" autofocus>
+          <br>
+          <div style="text-align: center;">
+            </button>
+            <button class="btn btn-primary btn-lg" type="submit" formaction="all-mpnet-base-v2">
+              <i class="glyphicon glyphicon-search"></i>
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
+  <center>
+      <h1>Relevant results</h1>
+  </center>
+
+  <table class="no-spacing" cellpadding=0 cellspacing=0>
+    <!-- <thead>
+      <tr>
+        <th>Date Stamp</th>
+        <th>Title</th>
+        <th>Abstract</th>
+        <th>Publication number</th>
+        <th>Inventors</th>
+      </tr>
+    </thead> -->
+
+{% for hit in res %}
+    <tbody>
+        <tr class="blank_row">
+            <td colspan="3"></td>
+        </tr>
+      <tr class="hide_all">
+        <td colspan="100"><a href="{{ hit[0]['self_link'] }}">{{ hit[0]['title'] }}</td></a></td>
+        </tr>
+        <tr class="hide_all">
+        <td >{{ hit[0]['publication_number'] }}</td>
+            <td> <b>Potential Supplier:</b> {{ hit[0]['current_assignee'] }}</td>
+        </tr>
+        <tr class="hide_all">
+        <td colspan="20" >Status: {{ hit[0]['status'] }}</td>
+        </tr>
+        <tr class="hide_all">
+        <td colspan="20" >Date of application: {{ hit[0]['date'] }}</td>
+        </tr>
+        <tr class="hide_all">
+        <td colspan="100">{{ hit[0]['abstract'] }}</td>
+        </tr>
+        
+    </tbody>
+{% endfor %}
+  </table>
+
+
+      </div>
+    </div>
+  </body>
+</html>

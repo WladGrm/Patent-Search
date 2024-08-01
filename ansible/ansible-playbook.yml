@@ -1,0 +1,94 @@
+---
+- name: Docker installation
+  hosts: test
+  remote_user: root
+
+
+  tasks:
+    - name: Install required system packages
+      apt:
+        pkg: 
+          - ca-certificates
+          - curl
+        state: latest
+        update_cache: true
+        
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+
+- name: Getting certificates for HTTPS
+  hosts: test
+  remote_user: root
+
+  tasks:
+    - name: Copy init compose
+      copy:
+        src: ../init_files/docker-compose.yaml
+        dest: /root
+
+    - name: Copy nginx basic config
+      copy:
+        src: ../nginx/nginx.conf
+        dest: /root/nginx/
+
+    - name: Copy init nginx config
+      copy:
+        src: ../init_files/init_conf.d
+        dest: /root/nginx/
+
+    - name: Docker compose up
+      command: docker compose up -d
+
+    - name: creating certificates
+      command: docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d patent-search.online --agree-tos --email "vladgrom1905@gmail.com"
+
+
+
+  - name: Deploying web app docker image
+    hosts: test
+    remote_user: root
+
+
+    tasks:
+      - name: shutting down previous docker compose
+        command: docker compose down
+
+      - name: Gitlab login
+        set_fact:
+        docker_login_token: "{{ lookup('file', 'files/docker_login_token') }}"
+
+      - name: Login to Docker registry
+        command: docker login -u oauth2 --password "{{ docker_login_token }}" https://registry.gitlab.co
+
+
+      - name: Copy https compose
+        copy:
+          src: ../docker-compose.yaml
+          dest: /root
+
+      - name: Copy https nginx
+        copy:
+          src: ../nginx/conf.d
+          dest: /root/nginx/
+
+
+      - name: Docker compose up
+        command: docker compose up -d --force-recreate
+
+
+
+  

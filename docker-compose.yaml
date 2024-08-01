@@ -1,0 +1,36 @@
+services:
+  patents_suppliers:
+    image: "registry.gitlab.com/vladgrom1905/patents_suppliers"
+    ports:
+      - "2000:2000"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:2000/ || exit 1" ]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '5'
+          memory: 6GB
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:/ro
+      - ./nginx/conf.d:/etc/nginx/conf.d/:ro
+      - ./certbot/conf/live/patent-search.online/privkey.pem:/opt/certs/privkey.pem
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/live/patent-search.online/fullchain.pem:/opt/certs/fullchain.pem
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      patents_suppliers:
+        condition: service_healthy

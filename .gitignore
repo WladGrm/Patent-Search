@@ -1,0 +1,7 @@
+patents
+patents.pub
+**.idea
+**__pycache__
+models
+ansible/keys
+ansible/files

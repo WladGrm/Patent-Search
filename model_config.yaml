@@ -1,0 +1,9 @@
+model_path_t5: models/translation/en_ru_zh/
+model_name_t5: utrobinmv/t5_translate_en_ru_zh_large_1024
+
+model_path_for_search: models/semantic_search/all_mpnet_base_v2/
+model_name_for_search: sentence-transformers/all-mpnet-base-v2
+
+path_to_csv: indexed/processed_active_etc.csv
+path_to_pickle: indexed/index_active_etc.pickle
+
