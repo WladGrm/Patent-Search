@@ -10,7 +10,7 @@ Installation of this demo is fully automated with Docker.
 
 ----------------------
 
-Installation & Running locally without Docker (not recomended)
+Installation & Running locally without Docker (not recommended)
 -------------
 1. Clone the repo
 1. Install the required Python packages by running `pip install --ignore-installed -r requirements.txt` OR simply run the `run.sh` script [windows]: `bash .\run.sh` OR [unix/linux]: `.\run.sh`.
@@ -21,14 +21,14 @@ Installation & Running locally without Docker (not recomended)
 6. Enter a query in the search box and click "Search" to retrieve relevant patent documents and potential suppliers.
 
 
-Installation & Running locally with Docker (recomended)
+Installation & Running locally with Docker (recommended)
 -----
 1. Clone the repo and `cd Patent-Search`
 2. Configure model_config.yaml [optional]
 3. Run `docker build -t patent-search .` to create an image.
 4. After building an image simply run `docker run patent-search`
 5. In the terminal follow one of the links to access Patents&Suppliers Search Service.
-6. Enter a query in the search box and click "Search" to retrieve relevant patent documents and suppliers.
+6. Enter a query in the search box and click "Search" to retrieve relevant patent documents and potential suppliers.
 
 Author
 ------
