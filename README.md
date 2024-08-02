@@ -1,4 +1,4 @@
-## Bachelor degree final project
+## Bachelor degree final project demo
 ----------------------
 This is a demo of a Patent Search Engine web-app based on T5 and BERT-like large language models (LLMs) that allow to enter a query in Russian/English/Chineese and retrieve relevant data in the domain of English language patents (test data scraped from Google Patents).
 
