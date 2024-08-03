@@ -12,9 +12,9 @@ Installation of this demo is fully automated with Docker.
 
 Installation & Running locally without Docker (not recommended)
 -------------
-1. Clone the repo
+1. Clone the repo and create a venv
 1. Install the required Python packages by running `pip install --ignore-installed -r requirements.txt` OR simply run the `run.sh` script [windows]: `bash .\run.sh` OR [unix/linux]: `.\run.sh`.
-2. Configure model_config.yaml and create a venv [optional]
+2. Configure model_config.yaml [optional]
 3. Download Hugging Face models by running `python3 model_utils.py`
 4. Run the Python Flask application by running `python3 app.py`.
 5. Open a web browser and click to some kind of `http://***.*.*.*:2000` link in terminal to access the Patents&Suppliers Search Service.
